@@ -2,6 +2,8 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -11,6 +13,12 @@ module.exports = {
     filename: 'bundle-[chunkhash].js',
   },
   devtool: 'none',
+  optimization: {
+    minimizer: [new UglifyJsPlugin({
+      test: /\.js(\?.*)?$/i,
+      exclude: /node_modules/,
+    })],
+  },
   module: {
     rules: [
       {
@@ -40,5 +48,9 @@ module.exports = {
       filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
+    new CompressionPlugin({
+      test: /\.js(\?.*)?$/i,
+      exclude: /node_modules/,
+    }),
   ],
 };
