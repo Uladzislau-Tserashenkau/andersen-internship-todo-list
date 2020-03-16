@@ -8,8 +8,8 @@ export default class View extends EventEmitter {
   }
 
   render(items) {
-    if (document.getElementById('root').children.length) {
-      document.getElementById('root').children[0].remove();
+    if (this.anchor.children.length) {
+      this.anchor.children[0].remove();
     }
     const list = document.createElement('ul');
     items.forEach((item) => {
