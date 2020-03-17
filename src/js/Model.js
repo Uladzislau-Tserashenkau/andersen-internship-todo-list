@@ -6,12 +6,12 @@ export default class Model {
 
   addItem(text, id) {
     this.items = [...this.items, { text, id }];
-    return [...this.items];
+    return { text, id };
   }
 
   removeItem(itemId) {
     this.items = this.items.filter((item) => item.id !== itemId);
-    return [...this.items];
+    return itemId;
   }
 
   getItems() {
