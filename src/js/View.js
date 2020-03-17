@@ -8,14 +8,10 @@ export default class View extends EventEmitter {
     this.currentElementsList = null;
   }
 
-  reRenderOnItemRemove(itemId) {
-    this.currentElementsList = this.currentElementsList.filter((existingElement) => {
-      if (+existingElement.dataset.itemId === itemId) {
-        existingElement.remove();
-        return false;
-      }
-      return true;
-    });
+  reRenderOnItemRemove(deleteItemId) {
+    this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === deleteItemId).remove();
+    this.currentElementsList = this.currentElementsList
+      .filter(({ dataset: { itemId } }) => +itemId !== deleteItemId);
   }
 
   reRenderOnItemAdd({ text, id }) {
