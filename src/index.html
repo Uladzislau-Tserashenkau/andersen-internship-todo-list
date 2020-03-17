@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
-  <title>Document</title>
-</head>
-<body>
-  <h1>App proj</h1>
-  <p>Simple description here</p>
-  <div id="root"></div>
-  <input type="text" id="inp">
-  <button id="btn">add</button>
-  <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="<%=htmlWebpackPlugin.files.chunks.main.css %>"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="appHeader">
+      <h1>Todo app</h1>
+      <p>Best app in the world!</p>
+    </header>
+    <main>
+      <section id="userInput">
+        <input type="text" id="inp" /> <button id="btn">add</button>
+      </section>
+      <section id="listOutput">
+        <div id="root"></div>
+      </section>
+    </main>
+    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
+  </body>
 </html>

@@ -4,7 +4,6 @@ export default class EventEmitter {
   }
 
   on(event, cb) {
-    console.log('event', event, 'subscribed!', cb);
     if (!this.events[event]) {
       this.events[event] = [];
     }
