@@ -21,6 +21,10 @@ export default class View extends EventEmitter {
     this.anchor.children[0].appendChild(newLi);
   }
 
+  addItemHandler(text) {
+    this.emit(events.ADD_ITEM, text);
+  }
+
   render(items) {
     const list = document.createElement('ul');
     items.forEach(({ text, id }) => {
@@ -32,13 +36,25 @@ export default class View extends EventEmitter {
         this.emit(events.REMOVE_ITEM, target.parentElement.dataset.itemId);
       }
     });
+
     this.anchor.appendChild(list);
 
     // -------------------------------------------
     const btn = document.getElementById('btn');
     const inp = document.getElementById('inp');
-    btn.addEventListener('click', () => {
-      this.emit(events.ADD_ITEM, inp.value);
+
+    btn.addEventListener('click', (e) => {
+      if (inp.value) {
+        this.addItemHandler(inp.value);
+        inp.value = '';
+      }
+    });
+
+    window.addEventListener('keydown', ({ key }) => {
+      if (key === 'Enter' && inp.value) {
+        this.addItemHandler(inp.value);
+        inp.value = '';
+      }
     });
   }
 }
