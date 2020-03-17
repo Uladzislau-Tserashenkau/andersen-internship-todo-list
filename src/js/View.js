@@ -1,6 +1,6 @@
 import EventEmitter from './EventEmitter';
 import events from './events';
-import Item from './Item';
+import Item from './components/Item';
 
 export default class View extends EventEmitter {
   constructor(anchor) {
