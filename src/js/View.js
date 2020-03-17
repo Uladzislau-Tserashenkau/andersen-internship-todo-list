@@ -16,9 +16,7 @@ export default class View extends EventEmitter {
   }
 
   reRenderOnItemAdd({ text, id }) {
-    const newLi = document.createElement('li');
-    newLi.textContent = text;
-    newLi.dataset.itemId = id;
+    const newLi = new Item(text, id);
     this.currentElementsList.push(newLi);
     this.anchor.children[0].appendChild(newLi);
   }
@@ -29,8 +27,10 @@ export default class View extends EventEmitter {
       list.appendChild(new Item(text, id));
     });
     this.currentElementsList = Array.from(list.children);
-    list.addEventListener('click', ({ target: { dataset: { itemId } } }) => {
-      this.emit(events.REMOVE_ITEM, itemId);
+    list.addEventListener('click', ({ target }) => {
+      if (target.classList.contains('delete-button')) {
+        this.emit(events.REMOVE_ITEM, target.parentElement.dataset.itemId);
+      }
     });
     this.anchor.appendChild(list);
 
