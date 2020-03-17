@@ -28,15 +28,15 @@ export default class View extends EventEmitter {
 
   render(items) {
     const list = document.createElement('ul');
-    items.forEach((item) => {
+    items.forEach(({ text, id }) => {
       const liElem = document.createElement('li');
-      liElem.innerText = item.text;
-      liElem.dataset.itemId = item.id;
+      liElem.innerText = text;
+      liElem.dataset.itemId = id;
       list.appendChild(liElem);
     });
     this.currentElementsList = Array.from(list.children);
-    list.addEventListener('click', (e) => {
-      this.emit(events.REMOVE_ITEM, e.target.dataset.itemId);
+    list.addEventListener('click', ({ target: { dataset: { itemId } } }) => {
+      this.emit(events.REMOVE_ITEM, itemId);
     });
     this.anchor.appendChild(list);
 
