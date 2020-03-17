@@ -1,5 +1,6 @@
 import EventEmitter from './EventEmitter';
 import events from './events';
+import Item from './Item';
 
 export default class View extends EventEmitter {
   constructor(anchor) {
@@ -25,10 +26,7 @@ export default class View extends EventEmitter {
   render(items) {
     const list = document.createElement('ul');
     items.forEach(({ text, id }) => {
-      const liElem = document.createElement('li');
-      liElem.innerText = text;
-      liElem.dataset.itemId = id;
-      list.appendChild(liElem);
+      list.appendChild(new Item(text, id));
     });
     this.currentElementsList = Array.from(list.children);
     list.addEventListener('click', ({ target: { dataset: { itemId } } }) => {
