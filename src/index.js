@@ -2,6 +2,7 @@
 import Controller from './js/Controller';
 import Model from './js/Model';
 import View from './js/View';
+import './index.css';
 
 const controller = new Controller(
   new View(document.getElementById('root')),
