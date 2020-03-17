@@ -10,7 +10,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle-[chunkhash].js',
   },
-  devtool: 'eval-cheap-source-map',
+  devtool: 'eval-cheap-module-source-map',
   module: {
     rules: [
       {

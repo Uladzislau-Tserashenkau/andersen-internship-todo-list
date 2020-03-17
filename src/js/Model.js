@@ -4,8 +4,9 @@ export default class Model {
     this.items = items;
   }
 
-  addItem(item) {
-    this.items.push(item);
+  addItem(text, id) {
+    this.items = [...this.items, { text, id }];
+    return [...this.items];
   }
 
   removeItem(itemId) {
