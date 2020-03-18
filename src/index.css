@@ -1,20 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:500,700&display=swap');
+@font-face {
+  font-family: 'myRoboto';
+  src: url('./fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'myRoboto';
+  src: url('./fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font: 1.5rem/1.5 'Roboto';
+  font: 1.5rem/1.5 'myRoboto';
 }
 
 body {
-  background-color: #FE6F61;
+  background-color: #fe6f61;
 }
 
 #appHeader {
-  background-color: #38889B;
-  color:#fff;
-  text-align:center;
+  background-color: #38889b;
+  color: #fff;
+  text-align: center;
   padding: 3%;
 }
 
@@ -24,7 +34,7 @@ body {
 }
 
 #userInput {
-  background-color: #8BBDC8;
+  background-color: #8bbdc8;
   padding: 2%;
   display: flex;
   justify-content: center;
@@ -40,12 +50,15 @@ body {
 #btn {
   margin: 0 15px;
   background-color: #159498;
-  color:#fff;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 10px;
 }
 
 #btn:hover {
   color: #fff;
-  background-color: #1C528E;
+  background-color: #1c528e;
 }
 
 main {
@@ -64,7 +77,7 @@ main {
   align-items: center;
   background-color: #fff;
   margin: 10px 0;
-  box-shadow: 3px 3px 3px rgba(0,0,0,0.32);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.32);
   padding: 10px;
 }
 
@@ -75,21 +88,20 @@ button {
   border-radius: 50%;
   padding: 1%;
   cursor: pointer;
-  border:none;
+  border: none;
   outline: none;
   transition: all 0.5s ease;
   font-weight: bold;
 }
 
 button.delete-button {
-  background-color: #A22B25;
-  color: #fff;  
-
+  background-color: #a22b25;
+  color: #fff;
 }
 
-button.delete-button:hover{
+button.delete-button:hover {
   background-color: #000;
-} 
+}
 
 @media screen and (max-width: 800px) {
   main {
@@ -101,7 +113,7 @@ button.delete-button:hover{
     flex-wrap: wrap;
   }
   #inp {
-    width: 100%;   
+    width: 100%;
   }
   #btn {
     margin-top: 15px;
