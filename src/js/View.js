@@ -10,9 +10,15 @@ export default class View extends EventEmitter {
   }
 
   reRenderOnItemRemove(deleteItemId) {
-    this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === deleteItemId).remove();
-    this.currentElementsList = this.currentElementsList
-      .filter(({ dataset: { itemId } }) => +itemId !== deleteItemId);
+    const elemToDelete = this.currentElementsList.find(
+      ({ dataset: { itemId } }) => +itemId === deleteItemId,
+    );
+    if (elemToDelete) {
+      elemToDelete.remove();
+    }
+    this.currentElementsList = this.currentElementsList.filter(
+      ({ dataset: { itemId } }) => +itemId !== deleteItemId,
+    );
   }
 
   reRenderOnItemAdd({ text, id }) {
