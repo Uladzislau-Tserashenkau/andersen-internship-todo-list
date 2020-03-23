@@ -14,10 +14,12 @@ module.exports = {
   },
   devtool: 'none',
   optimization: {
-    minimizer: [new UglifyJsPlugin({
-      test: /\.js(\?.*)?$/i,
-      exclude: /node_modules/,
-    })],
+    minimizer: [
+      new UglifyJsPlugin({
+        test: /\.js(\?.*)?$/i,
+        exclude: /node_modules/,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -32,6 +34,16 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader'],
         }),
+      },
+      {
+        test: /\.(ttf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+          },
+        },
       },
     ],
   },
