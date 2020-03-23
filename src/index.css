@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'myRoboto';
+  src: url('./fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'myRoboto';
+  src: url('./fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 1.5rem/1.5 'myRoboto';
+}
+
+body {
+  background-color: #fe6f61;
+}
+
+#appHeader {
+  background-color: #38889b;
+  color: #fff;
+  text-align: center;
+  padding: 3%;
+}
+
+#appHeader h1 {
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+#userInput {
+  background-color: #8bbdc8;
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#inp {
+  outline: none;
+  border: none;
+  padding: 10px;
+}
+
+#btn {
+  margin: 0 15px;
+  background-color: #159498;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 10px;
+}
+
+#btn:hover {
+  color: #fff;
+  background-color: #1c528e;
+}
+
+main {
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#root ul {
+  list-style-type: none;
+}
+
+#root li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  margin: 10px 0;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.32);
+  padding: 10px;
+}
+
+button {
+  font-size: 20px;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  padding: 1%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.5s ease;
+  font-weight: bold;
+}
+
+button.delete-button {
+  background-color: #a22b25;
+  color: #fff;
+}
+
+button.delete-button:hover {
+  background-color: #000;
+}
+
+@media screen and (max-width: 800px) {
+  main {
+    width: 100%;
+    padding: 40px;
+  }
+
+  #userInput {
+    flex-wrap: wrap;
+  }
+  #inp {
+    width: 100%;
+  }
+  #btn {
+    margin-top: 15px;
+  }
+}
