@@ -1,4 +1,4 @@
-import events from './events';
+import events from '../../events';
 
 export default class Controller {
   constructor(view, model) {
@@ -13,6 +13,14 @@ export default class Controller {
     view.on(events.ADD_ITEM, (text) => {
       this.itemCounter += 1;
       this.$view.reRenderOnItemAdd(this.$model.addItem(text, this.itemCounter));
+    });
+
+    view.on(events.EDIT_ITEM, (index) => {
+      this.$view.renderInput(this.$model.getItemText(index));
+    });
+
+    view.on(events.EDIT_FINISHED, (input) => {
+      this.$view.renderUpdatedItem(this.$model.updateItem(input));
     });
   }
 

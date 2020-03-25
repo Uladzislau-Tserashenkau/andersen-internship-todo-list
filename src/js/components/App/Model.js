@@ -14,6 +14,16 @@ export default class Model {
     return itemId;
   }
 
+  getItemText(itemId) {
+    return this.items.find(({ id }) => id === +itemId);
+  }
+
+  updateItem({ parentElement: { dataset: { itemId } }, value }) {
+    const elem = this.items.find(({ id }) => +itemId === id);
+    elem.text = value || elem.text;
+    return elem;
+  }
+
   getItems() {
     return [...this.items];
   }

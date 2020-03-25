@@ -40,6 +40,8 @@ body {
 #btn {
   margin: 0 15px;
   background-color: #159498;
+  height: 50px;
+  line-height: 20px;
   color:#fff;
 }
 
@@ -90,6 +92,10 @@ button.delete-button {
 button.delete-button:hover{
   background-color: #000;
 } 
+
+.item-text {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 800px) {
   main {

@@ -1,6 +1,8 @@
-import EventEmitter from './EventEmitter';
-import events from './events';
-import Item from './components/Item';
+import EventEmitter from '../../EventEmitter';
+import events from '../../events';
+import Item from '../Item/Item';
+import EditInput from '../EditInput/EditInput';
+import TextContainer from '../TextContainer/TextContainer';
 
 export default class View extends EventEmitter {
   constructor(anchor) {
@@ -25,6 +27,23 @@ export default class View extends EventEmitter {
     this.emit(events.ADD_ITEM, text);
   }
 
+  renderInput({ text, id }) {
+    const editInput = new EditInput(text);
+    const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
+    elem.children[0].remove();
+    elem.insertBefore(editInput, elem.children[0]);
+    editInput.focus();
+    editInput.addEventListener('blur', () => {
+      this.emit(events.EDIT_FINISHED, editInput);
+    });
+  }
+
+  renderUpdatedItem({ text, id }) {
+    const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +id === +itemId);
+    elem.firstChild.remove();
+    elem.insertBefore(new TextContainer(text), elem.firstChild);
+  }
+
   render(items) {
     const list = document.createElement('ul');
     items.forEach(({ text, id }) => {
@@ -34,6 +53,9 @@ export default class View extends EventEmitter {
     list.addEventListener('click', ({ target }) => {
       if (target.classList.contains('delete-button')) {
         this.emit(events.REMOVE_ITEM, target.parentElement.dataset.itemId);
+      }
+      if (target.classList.contains('item-text')) {
+        this.emit(events.EDIT_ITEM, target.parentElement.dataset.itemId);
       }
     });
 

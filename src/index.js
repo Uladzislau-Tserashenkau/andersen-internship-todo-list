@@ -1,7 +1,7 @@
 // import { doc } from "prettier";
-import Controller from './js/Controller';
-import Model from './js/Model';
-import View from './js/View';
+import Controller from './js/components/App/Controller';
+import Model from './js/components/App/Model';
+import View from './js/components/App/View';
 import './index.css';
 
 const controller = new Controller(

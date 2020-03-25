@@ -1,0 +1,6 @@
+# pack-refs with: peeled fully-peeled sorted 
+a638e2f053520e92157f6ad3d38fa71a38577a19 refs/heads/develop
+fe6e5f4c468933a327b801efa304b93bd100b3f2 refs/heads/feature/1-setting-up-environment
+a638e2f053520e92157f6ad3d38fa71a38577a19 refs/heads/master
+cf581fafeb1d6a0b4bc4ec6ebe343b143e4f7762 refs/tags/0.1.0
+^5264b3eb2be2fcb61b0003ebe75a01282dfb1ada
