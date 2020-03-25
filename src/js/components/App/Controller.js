@@ -4,7 +4,7 @@ export default class Controller {
   constructor(view, model) {
     this.$view = view;
     this.$model = model;
-    this.itemCounter = this.$model.getItems().length;
+    this.itemCounter = this.$model.getItems().length !== 0 ? this.$model.getItems().reduce((max, { id }) => (max < id ? id : max), -1) : 0;
 
     view.on(events.REMOVE_ITEM, (index) => {
       this.$view.reRenderOnItemRemove(this.$model.removeItem(+index));
