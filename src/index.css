@@ -8,11 +8,10 @@
 }
 
 body {
-  background-color: #FE6F61;
+  background-color: #38889B; 
 }
 
 #appHeader {
-  background-color: #38889B;
   color:#fff;
   text-align:center;
   padding: 3%;
