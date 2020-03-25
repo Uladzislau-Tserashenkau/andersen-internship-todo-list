@@ -95,7 +95,17 @@ button.delete-button:hover{
 
 .item-text {
   cursor: pointer;
+  transition: all 0.5s ease;
 }
+
+.item-text:hover {
+  font-weight: bold;
+  color: darkolivegreen;
+  text-decoration: darkolivegreen solid underline;
+  
+}
+
+
 
 @media screen and (max-width: 800px) {
   main {
