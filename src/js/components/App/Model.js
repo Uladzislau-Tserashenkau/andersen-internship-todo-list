@@ -9,7 +9,7 @@ export default class Model {
   }
 
   addItem(text, id) {
-    this.items = [...this.items, { text, id }];
+    this.items = [...this.items, { text, id, done: false }];
     localStorage.setItem('data', JSON.stringify(this.items));
     return { text, id };
   }
@@ -22,6 +22,13 @@ export default class Model {
 
   getItemText(itemId) {
     return this.items.find(({ id }) => id === +itemId);
+  }
+
+  itemDone(itemId) {
+    const elem = this.items.find(({ id }) => id === +itemId);
+    elem.done = !elem.done;
+    localStorage.setItem('data', JSON.stringify(this.items));
+    return elem;
   }
 
   updateItem({ parentElement: { dataset: { itemId } }, value }) {

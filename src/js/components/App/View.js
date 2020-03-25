@@ -23,6 +23,11 @@ export default class View extends EventEmitter {
     this.anchor.children[0].appendChild(newLi);
   }
 
+  reRenderOnItemDone({ id, done }) {
+    const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
+    elem.classList.toggle('done');
+  }
+
   addItemHandler(text) {
     this.emit(events.ADD_ITEM, text);
   }
@@ -47,8 +52,8 @@ export default class View extends EventEmitter {
 
   render(items) {
     const list = document.createElement('ul');
-    items.forEach(({ text, id }) => {
-      list.appendChild(new Item(text, id));
+    items.forEach(({ text, id, done }) => {
+      list.appendChild(new Item(text, id, done));
     });
     this.currentElementsList = Array.from(list.children);
     list.addEventListener('click', ({ target }) => {
@@ -57,6 +62,9 @@ export default class View extends EventEmitter {
       }
       if (target.classList.contains('item-text')) {
         this.emit(events.EDIT_ITEM, target.parentElement.dataset.itemId);
+      }
+      if (target.classList.contains('done-button')) {
+        this.emit(events.ITEM_DONE, target.parentElement.dataset.itemId);
       }
     });
 

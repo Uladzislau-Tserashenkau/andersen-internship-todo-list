@@ -70,6 +70,10 @@ main {
   padding: 10px;
 }
 
+#root li :first-child {
+  margin: auto;
+}
+
 button {
   font-size: 20px;
   min-width: 50px;
@@ -105,6 +109,36 @@ button.delete-button:hover{
   
 }
 
+.done-button {
+  transition: all 0.5s ease;
+  background-color: gray;
+  color:#fff;
+  margin-right: 10px;
+}
+
+.done > .done-button {
+  background-color: forestgreen;
+  color: #fff;
+}
+
+.done-button:hover {
+  background-color: darkseagreen;
+}
+
+.edit-item {
+  text-align: center;
+  width: 100%;
+}
+
+li.done .item-text {
+  text-decoration: line-through solid #332020;
+}
+
+#root li.done {
+  background-color: #2d2d2d ;
+  color: #fff;
+}
+
 
 
 @media screen and (max-width: 800px) {
@@ -122,4 +156,16 @@ button.delete-button:hover{
   #btn {
     margin-top: 15px;
   }
+
+  #root li {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+ 
+
+  #root li :first-child {
+    flex-basis: 100%;
+  }
+
+
 }

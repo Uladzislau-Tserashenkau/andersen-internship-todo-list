@@ -19,6 +19,10 @@ export default class Controller {
       this.$view.renderInput(this.$model.getItemText(index));
     });
 
+    view.on(events.ITEM_DONE, (index) => {
+      this.$view.reRenderOnItemDone(this.$model.itemDone(index));
+    });
+
     view.on(events.EDIT_FINISHED, (input) => {
       this.$view.renderUpdatedItem(this.$model.updateItem(input));
     });
