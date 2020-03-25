@@ -41,6 +41,7 @@ export default class View extends EventEmitter {
   renderUpdatedItem({ text, id }) {
     const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +id === +itemId);
     elem.firstChild.remove();
+
     elem.insertBefore(new TextContainer(text), elem.firstChild);
   }
 
@@ -73,7 +74,9 @@ export default class View extends EventEmitter {
     });
 
     window.addEventListener('keydown', ({ key }) => {
-      if (key === 'Enter' && inp.value) {
+      if (key === 'Enter' && document.getElementsByClassName('edit-item').length !== 0) {
+        document.getElementsByClassName('edit-item')[0].blur();
+      } else if (key === 'Enter' && inp.value) {
         this.addItemHandler(inp.value);
         inp.value = '';
       }
