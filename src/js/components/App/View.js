@@ -3,29 +3,34 @@ import events from '../../events';
 import Item from '../Item/Item';
 import EditInput from '../EditInput/EditInput';
 import TextContainer from '../TextContainer/TextContainer';
+import TaskCounter from '../TaskCounter/TaskCounter';
 
 export default class View extends EventEmitter {
   constructor(anchor) {
     super();
     this.anchor = anchor;
     this.currentElementsList = null;
+    this.taskCounter = new TaskCounter(0, 0);
   }
 
   reRenderOnItemRemove(deleteItemId) {
     this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === deleteItemId).remove();
     this.currentElementsList = this.currentElementsList
       .filter(({ dataset: { itemId } }) => +itemId !== deleteItemId);
+    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
   }
 
   reRenderOnItemAdd({ text, id }) {
     const newLi = new Item(text, id);
     this.currentElementsList.push(newLi);
     this.anchor.children[0].appendChild(newLi);
+    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
   }
 
   reRenderOnItemDone({ id, done }) {
     const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
     elem.classList.toggle('done');
+    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
   }
 
   addItemHandler(text) {
@@ -69,11 +74,14 @@ export default class View extends EventEmitter {
     });
 
     this.anchor.appendChild(list);
+    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
+
 
     // -------------------------------------------
     const btn = document.getElementById('btn');
     const inp = document.getElementById('inp');
-
+    const appHeader = document.getElementById('appHeader');
+    appHeader.appendChild(this.anchor.appendChild(this.taskCounter.getElem()));
     btn.addEventListener('click', (e) => {
       if (inp.value) {
         this.addItemHandler(inp.value);
