@@ -138,7 +138,24 @@ li.done .item-text {
   color: #fff;
 }
 
+#appHeader .filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#appHeader .filter button {
+  margin:10px;
+  flex-basis: 100px;
+  border-radius: 30px;
+}
 
+#appHeader .filter button.filtered {
+  background-color: khaki;
+}
+
+#appHeader .filter button:hover {
+  background-color: burlywood;
+}
 
 @media screen and (max-width: 800px) {
   main {

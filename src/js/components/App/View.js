@@ -4,6 +4,7 @@ import Item from '../Item/Item';
 import EditInput from '../EditInput/EditInput';
 import TextContainer from '../TextContainer/TextContainer';
 import TaskCounter from '../TaskCounter/TaskCounter';
+import Filter from '../Filter/Filter';
 
 export default class View extends EventEmitter {
   constructor(anchor) {
@@ -11,6 +12,7 @@ export default class View extends EventEmitter {
     this.anchor = anchor;
     this.currentElementsList = null;
     this.taskCounter = new TaskCounter(0, 0);
+    this.filter = new Filter();
   }
 
   reRenderOnItemRemove(deleteItemId) {
@@ -55,6 +57,10 @@ export default class View extends EventEmitter {
     elem.insertBefore(new TextContainer(text), elem.firstChild);
   }
 
+  reRenderOnFilter(itemsToRender) {
+
+  }
+
   render(items) {
     const list = document.createElement('ul');
     items.forEach(({ text, id, done }) => {
@@ -82,6 +88,7 @@ export default class View extends EventEmitter {
     const inp = document.getElementById('inp');
     const appHeader = document.getElementById('appHeader');
     appHeader.appendChild(this.anchor.appendChild(this.taskCounter.getElem()));
+    appHeader.appendChild(this.anchor.appendChild(this.filter.getElem()));
     btn.addEventListener('click', (e) => {
       if (inp.value) {
         this.addItemHandler(inp.value);
