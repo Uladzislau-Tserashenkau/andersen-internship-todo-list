@@ -15,6 +15,10 @@ export default class Controller {
       this.$view.reRenderOnItemAdd(this.$model.addItem(text, this.itemCounter));
     });
 
+    view.on(events.FILTER_ITEMS, (filterType) => {
+      this.$view.reRenderOnFilter(this.$model.getFilteredItems(filterType));
+    });
+
     view.on(events.EDIT_ITEM, (index) => {
       this.$view.renderInput(this.$model.getItemText(index));
     });

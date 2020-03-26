@@ -58,7 +58,16 @@ export default class View extends EventEmitter {
   }
 
   reRenderOnFilter(itemsToRender) {
-
+    while (this.anchor.firstChild.firstChild) {
+      this.anchor.firstChild.firstChild.remove();
+    }
+    itemsToRender.forEach(({ id }) => {
+      this.currentElementsList.forEach((item) => {
+        if (+item.dataset.itemId === id) {
+          this.anchor.firstChild.appendChild(item);
+        }
+      });
+    });
   }
 
   render(items) {
@@ -89,6 +98,24 @@ export default class View extends EventEmitter {
     const appHeader = document.getElementById('appHeader');
     appHeader.appendChild(this.anchor.appendChild(this.taskCounter.getElem()));
     appHeader.appendChild(this.anchor.appendChild(this.filter.getElem()));
+
+    appHeader.addEventListener('click', ({ target }) => {
+      if (target.classList.contains('filter-all') && !target.classList.contains('filtered')) {
+        this.emit(events.FILTER_ITEMS, 'filter-all');
+        document.getElementsByClassName('filtered')[0].classList.remove('filtered');
+        target.classList.add('filtered');
+      }
+      if (target.classList.contains('filter-done') && !target.classList.contains('filtered')) {
+        this.emit(events.FILTER_ITEMS, 'filter-done');
+        document.getElementsByClassName('filtered')[0].classList.remove('filtered');
+        target.classList.add('filtered');
+      }
+      if (target.classList.contains('filter-undone') && !target.classList.contains('filtered')) {
+        this.emit(events.FILTER_ITEMS, 'filter-undone');
+        document.getElementsByClassName('filtered')[0].classList.remove('filtered');
+        target.classList.add('filtered');
+      }
+    });
     btn.addEventListener('click', (e) => {
       if (inp.value) {
         this.addItemHandler(inp.value);

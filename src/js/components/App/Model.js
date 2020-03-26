@@ -38,6 +38,15 @@ export default class Model {
     return elem;
   }
 
+  getFilteredItems(filterType) {
+    if (filterType === 'filter-done') {
+      return this.items.filter(({ done }) => done);
+    } if (filterType === 'filter-undone') {
+      return this.items.filter(({ done }) => !done);
+    }
+    return [...this.items];
+  }
+
   getItems() {
     return [...this.items];
   }

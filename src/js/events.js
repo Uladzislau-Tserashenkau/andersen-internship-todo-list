@@ -4,6 +4,7 @@ const EDIT_ITEM = 'editItem';
 const EDIT_FINISHED = 'editFinished';
 const ITEM_DONE = 'itemDone';
 const ITEM_UNDONE = 'itemUndone';
+const FILTER_ITEMS = 'filterItems';
 
 export default {
   REMOVE_ITEM,
@@ -12,4 +13,5 @@ export default {
   EDIT_FINISHED,
   ITEM_DONE,
   ITEM_UNDONE,
+  FILTER_ITEMS,
 };
