@@ -19,20 +19,26 @@ export default class View extends EventEmitter {
     this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === deleteItemId).remove();
     this.currentElementsList = this.currentElementsList
       .filter(({ dataset: { itemId } }) => +itemId !== deleteItemId);
-    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
+    this.updateCounter();
   }
 
   reRenderOnItemAdd({ text, id }) {
     const newLi = new Item(text, id);
     this.currentElementsList.push(newLi);
     this.anchor.children[0].appendChild(newLi);
-    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
+    this.updateCounter();
   }
 
   reRenderOnItemDone({ id, done }) {
     const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
     elem.classList.toggle('done');
-    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
+    this.updateCounter();
+  }
+
+  updateCounter() {
+    const doneItemsAmount = this.currentElementsList.filter(({ className }) => className.includes('done')).length;
+    const allItemsAmount = this.currentElementsList.length;
+    this.taskCounter.update(doneItemsAmount, allItemsAmount);
   }
 
   addItemHandler(text) {
