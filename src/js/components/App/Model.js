@@ -6,15 +6,19 @@ export default class Model {
     this.items = localStorage.getItem(this.DATA) ? JSON.parse(localStorage.getItem(this.DATA)) : [];
   }
 
+  saveToLocalStorage() {
+    localStorage.setItem(this.DATA, JSON.stringify(this.items));
+  }
+
   addItem(text, id) {
     this.items = [...this.items, { text, id, done: false }];
-    localStorage.setItem(this.DATA, JSON.stringify(this.items));
+    this.saveToLocalStorage();
     return { text, id };
   }
 
   removeItem(itemId) {
     this.items = this.items.filter((item) => item.id !== itemId);
-    localStorage.setItem(this.DATA, JSON.stringify(this.items));
+    this.saveToLocalStorage();
     return itemId;
   }
 
@@ -25,14 +29,14 @@ export default class Model {
   itemDone(itemId) {
     const elem = this.items.find(({ id }) => id === +itemId);
     elem.done = !elem.done;
-    localStorage.setItem(this.DATA, JSON.stringify(this.items));
+    this.saveToLocalStorage();
     return elem;
   }
 
   updateItem({ parentElement: { dataset: { itemId } }, value }) {
     const elem = this.items.find(({ id }) => +itemId === id);
     elem.text = value || elem.text;
-    localStorage.setItem(this.DATA, JSON.stringify(this.items));
+    this.saveToLocalStorage();
     return elem;
   }
 
