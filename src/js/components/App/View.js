@@ -15,8 +15,12 @@ export default class View extends EventEmitter {
     this.filter = new Filter();
   }
 
+  findItem(id) {
+    return this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
+  }
+
   reRenderOnItemRemove(deleteItemId) {
-    this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === deleteItemId).remove();
+    this.findItem(deleteItemId).remove();
     this.currentElementsList = this.currentElementsList
       .filter(({ dataset: { itemId } }) => +itemId !== deleteItemId);
     this.updateCounter();
@@ -29,9 +33,8 @@ export default class View extends EventEmitter {
     this.updateCounter();
   }
 
-  reRenderOnItemDone({ id, done }) {
-    const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
-    elem.classList.toggle('done');
+  reRenderOnItemDone({ id }) {
+    this.findItem(id).classList.toggle('done');
     this.updateCounter();
   }
 
@@ -47,7 +50,7 @@ export default class View extends EventEmitter {
 
   renderInput({ text, id }) {
     const editInput = new EditInput(text);
-    const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +itemId === id);
+    const elem = this.findItem(id);
     elem.children[0].remove();
     elem.insertBefore(editInput, elem.children[0]);
     editInput.focus();
@@ -57,9 +60,8 @@ export default class View extends EventEmitter {
   }
 
   renderUpdatedItem({ text, id }) {
-    const elem = this.currentElementsList.find(({ dataset: { itemId } }) => +id === +itemId);
+    const elem = this.findItem(id);
     elem.firstChild.remove();
-
     elem.insertBefore(new TextContainer(text), elem.firstChild);
   }
 
@@ -95,7 +97,7 @@ export default class View extends EventEmitter {
     });
 
     this.anchor.appendChild(list);
-    this.taskCounter.update(document.getElementsByClassName('done').length, this.currentElementsList.length);
+    this.updateCounter();
 
 
     // -------------------------------------------
