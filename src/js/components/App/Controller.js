@@ -20,7 +20,7 @@ export default class Controller {
     });
 
     view.on(events.EDIT_ITEM, (index) => {
-      this.$view.renderInput(this.$model.getItemText(index));
+      this.$view.renderInput(this.$model.getItem(index));
     });
 
     view.on(events.ITEM_DONE, (index) => {

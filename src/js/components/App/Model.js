@@ -22,19 +22,19 @@ export default class Model {
     return itemId;
   }
 
-  getItemText(itemId) {
+  getItem(itemId) {
     return this.items.find(({ id }) => id === +itemId);
   }
 
   itemDone(itemId) {
-    const elem = this.items.find(({ id }) => id === +itemId);
+    const elem = this.getItem(itemId);
     elem.done = !elem.done;
     this.saveToLocalStorage();
     return elem;
   }
 
   updateItem({ parentElement: { dataset: { itemId } }, value }) {
-    const elem = this.items.find(({ id }) => +itemId === id);
+    const elem = this.getItem(itemId);
     elem.text = value || elem.text;
     this.saveToLocalStorage();
     return elem;
