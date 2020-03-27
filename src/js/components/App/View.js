@@ -5,6 +5,7 @@ import EditInput from '../EditInput/EditInput';
 import TextContainer from '../TextContainer/TextContainer';
 import TaskCounter from '../TaskCounter/TaskCounter';
 import Filter from '../Filter/Filter';
+import classNames from '../classNames';
 
 export default class View extends EventEmitter {
   constructor(anchor) {
@@ -74,6 +75,19 @@ export default class View extends EventEmitter {
     });
   }
 
+  filterReact(target) {
+    if (!target.classList.contains(classNames.FILTERED)) {
+      if (target.classList.contains(classNames.FILTER_ALL)
+      || target.classList.contains(classNames.FILTER_DONE)
+      || target.classList.contains(classNames.FILTER_UNDONE)) {
+        this.emit(events.FILTER_ITEMS, target.className);
+        const oldFilter = document.getElementsByClassName(classNames.FILTERED)[0];
+        oldFilter.classList.remove(classNames.FILTERED);
+        target.classList.add(classNames.FILTERED);
+      }
+    }
+  }
+
   render(items) {
     const list = document.createElement('ul');
     items.forEach(({ text, id, done }) => {
@@ -81,13 +95,13 @@ export default class View extends EventEmitter {
     });
     this.currentElementsList = Array.from(list.children);
     list.addEventListener('click', ({ target }) => {
-      if (target.classList.contains('delete-button')) {
+      if (target.classList.contains(classNames.DELETE_BUTTON)) {
         this.emit(events.REMOVE_ITEM, target.parentElement.dataset.itemId);
       }
-      if (target.classList.contains('item-text')) {
+      if (target.classList.contains(classNames.ITEM_TEXT)) {
         this.emit(events.EDIT_ITEM, target.parentElement.dataset.itemId);
       }
-      if (target.classList.contains('done-button')) {
+      if (target.classList.contains(classNames.DONE_BUTTON)) {
         this.emit(events.ITEM_DONE, target.parentElement.dataset.itemId);
       }
     });
@@ -104,21 +118,7 @@ export default class View extends EventEmitter {
     appHeader.appendChild(this.anchor.appendChild(this.filter.getElem()));
 
     appHeader.addEventListener('click', ({ target }) => {
-      if (target.classList.contains('filter-all') && !target.classList.contains('filtered')) {
-        this.emit(events.FILTER_ITEMS, 'filter-all');
-        document.getElementsByClassName('filtered')[0].classList.remove('filtered');
-        target.classList.add('filtered');
-      }
-      if (target.classList.contains('filter-done') && !target.classList.contains('filtered')) {
-        this.emit(events.FILTER_ITEMS, 'filter-done');
-        document.getElementsByClassName('filtered')[0].classList.remove('filtered');
-        target.classList.add('filtered');
-      }
-      if (target.classList.contains('filter-undone') && !target.classList.contains('filtered')) {
-        this.emit(events.FILTER_ITEMS, 'filter-undone');
-        document.getElementsByClassName('filtered')[0].classList.remove('filtered');
-        target.classList.add('filtered');
-      }
+      this.filterReact(target);
     });
     btn.addEventListener('click', (e) => {
       if (inp.value) {
