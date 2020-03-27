@@ -1,8 +1,10 @@
 
 export default class Model {
   constructor() {
-    if (localStorage.getItem('data')) {
-      this.items = JSON.parse(localStorage.getItem('data'));
+    const DATA = 'data';
+    this.DATA = DATA;
+    if (localStorage.getItem(this.DATA)) {
+      this.items = JSON.parse(localStorage.getItem(this.DATA));
     } else {
       this.items = [];
     }
@@ -10,13 +12,13 @@ export default class Model {
 
   addItem(text, id) {
     this.items = [...this.items, { text, id, done: false }];
-    localStorage.setItem('data', JSON.stringify(this.items));
+    localStorage.setItem(this.DATA, JSON.stringify(this.items));
     return { text, id };
   }
 
   removeItem(itemId) {
     this.items = this.items.filter((item) => item.id !== itemId);
-    localStorage.setItem('data', JSON.stringify(this.items));
+    localStorage.setItem(this.DATA, JSON.stringify(this.items));
     return itemId;
   }
 
@@ -27,14 +29,14 @@ export default class Model {
   itemDone(itemId) {
     const elem = this.items.find(({ id }) => id === +itemId);
     elem.done = !elem.done;
-    localStorage.setItem('data', JSON.stringify(this.items));
+    localStorage.setItem(this.DATA, JSON.stringify(this.items));
     return elem;
   }
 
   updateItem({ parentElement: { dataset: { itemId } }, value }) {
     const elem = this.items.find(({ id }) => +itemId === id);
     elem.text = value || elem.text;
-    localStorage.setItem('data', JSON.stringify(this.items));
+    localStorage.setItem(this.DATA, JSON.stringify(this.items));
     return elem;
   }
 
