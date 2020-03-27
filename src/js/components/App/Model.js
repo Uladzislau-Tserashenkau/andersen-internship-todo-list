@@ -3,11 +3,7 @@ export default class Model {
   constructor() {
     const DATA = 'data';
     this.DATA = DATA;
-    if (localStorage.getItem(this.DATA)) {
-      this.items = JSON.parse(localStorage.getItem(this.DATA));
-    } else {
-      this.items = [];
-    }
+    this.items = localStorage.getItem(this.DATA) ? JSON.parse(localStorage.getItem(this.DATA)) : [];
   }
 
   addItem(text, id) {
