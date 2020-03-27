@@ -70,11 +70,7 @@ export default class View extends EventEmitter {
       this.anchor.firstChild.firstChild.remove();
     }
     itemsToRender.forEach(({ id }) => {
-      this.currentElementsList.forEach((item) => {
-        if (+item.dataset.itemId === id) {
-          this.anchor.firstChild.appendChild(item);
-        }
-      });
+      this.anchor.firstChild.appendChild(this.findItem(id));
     });
   }
 
