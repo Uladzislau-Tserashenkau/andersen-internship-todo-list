@@ -88,12 +88,23 @@ export default class View extends EventEmitter {
     }
   }
 
-  render(items) {
+  appHeaderInit() {
+    const appHeader = document.getElementById('appHeader');
+    appHeader.appendChild(this.anchor.appendChild(this.taskCounter.getElem()));
+    appHeader.appendChild(this.anchor.appendChild(this.filter.getElem()));
+
+    appHeader.addEventListener('click', ({ target }) => {
+      this.filterReact(target);
+    });
+  }
+
+  renderList(items) {
     const list = document.createElement('ul');
     items.forEach(({ text, id, done }) => {
       list.appendChild(new Item(text, id, done));
     });
     this.currentElementsList = Array.from(list.children);
+
     list.addEventListener('click', ({ target }) => {
       if (target.classList.contains(classNames.DELETE_BUTTON)) {
         this.emit(events.REMOVE_ITEM, target.parentElement.dataset.itemId);
@@ -105,35 +116,38 @@ export default class View extends EventEmitter {
         this.emit(events.ITEM_DONE, target.parentElement.dataset.itemId);
       }
     });
-
     this.anchor.appendChild(list);
-    this.updateCounter();
+  }
 
-
-    // -------------------------------------------
+  addInputsInit() {
     const btn = document.getElementById('btn');
     const inp = document.getElementById('inp');
-    const appHeader = document.getElementById('appHeader');
-    appHeader.appendChild(this.anchor.appendChild(this.taskCounter.getElem()));
-    appHeader.appendChild(this.anchor.appendChild(this.filter.getElem()));
 
-    appHeader.addEventListener('click', ({ target }) => {
-      this.filterReact(target);
-    });
     btn.addEventListener('click', (e) => {
       if (inp.value) {
         this.addItemHandler(inp.value);
         inp.value = '';
       }
     });
+  }
 
+  globalEventListentersInit() {
+    const inp = document.getElementById('inp');
     window.addEventListener('keydown', ({ key }) => {
-      if (key === 'Enter' && document.getElementsByClassName('edit-item').length !== 0) {
-        document.getElementsByClassName('edit-item')[0].blur();
+      if (key === 'Enter' && document.getElementsByClassName(classNames.EDIT_ITEM).length !== 0) {
+        document.getElementsByClassName(classNames.EDIT_ITEM)[0].blur();
       } else if (key === 'Enter' && inp.value) {
         this.addItemHandler(inp.value);
         inp.value = '';
       }
     });
+  }
+
+  render(items) {
+    this.renderList(items);
+    this.updateCounter();
+    this.appHeaderInit();
+    this.addInputsInit();
+    this.globalEventListentersInit();
   }
 }
