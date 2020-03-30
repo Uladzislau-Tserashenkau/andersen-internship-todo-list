@@ -8,11 +8,10 @@
 }
 
 body {
-  background-color: #FE6F61;
+  background-color: #38889B; 
 }
 
 #appHeader {
-  background-color: #38889B;
   color:#fff;
   text-align:center;
   padding: 3%;
@@ -40,6 +39,8 @@ body {
 #btn {
   margin: 0 15px;
   background-color: #159498;
+  height: 50px;
+  line-height: 20px;
   color:#fff;
 }
 
@@ -68,6 +69,10 @@ main {
   padding: 10px;
 }
 
+#root li :first-child {
+  margin: auto;
+}
+
 button {
   font-size: 20px;
   min-width: 50px;
@@ -91,6 +96,67 @@ button.delete-button:hover{
   background-color: #000;
 } 
 
+.item-text {
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.item-text:hover {
+  font-weight: bold;
+  color: darkolivegreen;
+  text-decoration: darkolivegreen solid underline;
+  
+}
+
+.done-button {
+  transition: all 0.5s ease;
+  background-color: gray;
+  color:#fff;
+  margin-right: 10px;
+}
+
+.done > .done-button {
+  background-color: forestgreen;
+  color: #fff;
+}
+
+.done-button:hover {
+  background-color: darkseagreen;
+}
+
+.edit-item {
+  text-align: center;
+  width: 100%;
+}
+
+li.done .item-text {
+  text-decoration: line-through solid #332020;
+}
+
+#root li.done {
+  background-color: #2d2d2d ;
+  color: #fff;
+}
+
+#appHeader .filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#appHeader .filter button {
+  margin:10px;
+  flex-basis: 100px;
+  border-radius: 30px;
+}
+
+#appHeader .filter button.filtered {
+  background-color: khaki;
+}
+
+#appHeader .filter button:hover {
+  background-color: burlywood;
+}
+
 @media screen and (max-width: 800px) {
   main {
     width: 100%;
@@ -106,4 +172,16 @@ button.delete-button:hover{
   #btn {
     margin-top: 15px;
   }
+
+  #root li {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+ 
+
+  #root li :first-child {
+    flex-basis: 100%;
+  }
+
+
 }
